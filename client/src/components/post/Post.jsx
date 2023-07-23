@@ -1,28 +1,35 @@
 import React from 'react'
 import './index.css'
+import { Link } from 'react-router-dom'
 
-export const Post = () => {
+export const Post = ({post}) => {
   return (
     <div className='post'>
+    {post.photo && (
         <img className='postImg'
-            src='https://www.focusforhealth.org/wp-content/uploads/2019/07/Loneliness-Health-508101782.jpg'
+            src={post.photo}
             alt=''
         />
+    )}
         <div className='postInfo'>
             <div className='postCats'>
-                <span className='postCat'>Philosopy</span>
-                <span className='postCat'>Tech</span>
-            </div>
-            <span className='postTitle'>
-                Lorem Ipsum is simply dummy
-            </span>
+            {post.categories.map((c) => (
+                <span className='postCat'>
+                    {c.name}
+                </span>
+            ))}
+            </div> 
+            <Link to={`/post/${post._id}`} className="link">
+                <span className='postTitle'>
+                    {post.title}
+                </span>
+            </Link>
             <hr />
             <span className='postDate'>
-                1 hour ago
+                {new Date(post.createdAt).toDateString()}
             </span>
             <p className='postDesc'>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
-            has been the industry's standard dummy text ever since the 1500s.
+                {post.desc}
             </p>
         </div>
     </div>
